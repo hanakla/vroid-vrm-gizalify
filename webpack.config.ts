@@ -1,5 +1,4 @@
 import webpack from "webpack";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { join } from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
@@ -11,48 +10,24 @@ export default () =>
       filename: "[name].js"
     },
     resolve: {
-      extensions: [".js", ".ts", ".tsx"]
+      extensions: [".js", ".ts"]
     },
     module: {
       rules: [
         {
-          test: /\.tsx?/,
+          test: /\.ts?/,
           loader: "ts-loader",
           options: {
             transpileOnly: true
           }
-        },
-        {
-          test: /\.sass/,
-          use: [
-            { loader: MiniCssExtractPlugin.loader },
-            {
-              loader: "css-loader",
-              options: {
-                modules: true,
-                localIdentName: "[name]__[local]--[hash:base64:8]"
-              }
-            },
-            {
-              loader: "sass-loader",
-              options: {
-                implementation: require("sass")
-              }
-            }
-          ]
         }
       ]
     },
     plugins: [
       new HtmlWebpackPlugin({
         filename: "index.html",
-        title: "サムネ映えチェッカー",
-        files: {
-          css: ["style.css"]
-        }
-      }),
-      new MiniCssExtractPlugin({
-        filename: "style.css"
+        title: "Gizabalify for VRoid VRM",
+        template: "src/index.html"
       })
     ]
   } as webpack.Configuration);

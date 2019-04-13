@@ -34,16 +34,12 @@ export class VRM {
     }));
   }
 
-  public findBlendByName(name: VRMBlendShapeName) {
-    return (this.blendShapeGroups as any[]).find(bsg => bsg.name === name);
-  }
-
   public get blendShapeGroups(): any[] {
     return this.vrm.blendShapeMaster.blendShapeGroups;
   }
 
   public toString() {
-    console.log(this.gltf);
+    console.log("VRM serialized", this.gltf);
     return JSON.stringify(this.gltf);
   }
 }
