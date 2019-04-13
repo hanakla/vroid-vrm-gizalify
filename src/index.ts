@@ -56,6 +56,13 @@ window.addEventListener("drop", async e => {
       ({ name }) => name == "Face.M_F00_000_00_Fcl_HA_Fung2"
     );
 
+    if (!fung2Mesh) {
+      downloadLink.textContent =
+        "Oops, it VRM looks like not exported from VRoid Studio";
+
+      throw new Error("Unsupported VRM");
+    }
+
     const findBlendShapeGroupByName = (name: string) =>
       vrm.blendShapeGroups.find(group => group.name === name);
 
