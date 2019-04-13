@@ -53,7 +53,9 @@ window.addEventListener("drop", async e => {
 
     const meshes = vrm.getFaceMeshes();
     const fung2Mesh = meshes.find(
-      ({ name }) => name == "Face.M_F00_000_00_Fcl_HA_Fung2"
+      ({ name }) =>
+        name === "Face.M_F00_000_00_Fcl_HA_Fung2" ||
+        name === "Face.M_F00_000_Fcl_HA_Fung2"
     );
 
     if (!fung2Mesh) {
