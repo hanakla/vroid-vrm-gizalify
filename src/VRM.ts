@@ -6,7 +6,7 @@ export enum VRMBlendShapeName {
   O = "O"
 }
 
-export class VRM {
+export class GltfVRM {
   private vrm: any;
   constructor(private gltf: any) {
     this.vrm = this.gltf.extensions.VRM;
