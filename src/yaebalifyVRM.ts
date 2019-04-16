@@ -26,7 +26,7 @@ export const yaebalifyVRM = (vrm: GltfVRM) => {
     [findBlendShapeGroupByName("E"), 80],
     [findBlendShapeGroupByName("O"), 70],
     [findBlendShapeGroupByName("Angry"), 40],
-    [findBlendShapeGroupByName("Fun"), 0],
+    [findBlendShapeGroupByName("Fun"), 60],
     [findBlendShapeGroupByName("Joy"), 80],
     [findBlendShapeGroupByName("Sorrow"), 80],
     [findBlendShapeGroupByName("Surprised"), 80]
