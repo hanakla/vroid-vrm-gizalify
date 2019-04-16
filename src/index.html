@@ -15,13 +15,26 @@
     justify-content: center;
     align-items: center;
     flex-flow: column;
+  }
+  h1 {
     font-size: 32px;
   }
-  #root a {
+  #download {
       font-size: 16px;
   }
 </style>
-<div id="root">
-    Drop VRM here
-    <div><a id="download" /></div>
-</div>
+<main id="root">
+    <section>
+      <h1>1. Choose teeth type</h1>
+      <label><input type="radio" name="teethType" value="gizaba" checked /> ギザ歯(Jagged Teeth)</label>
+      <label><input type="radio" name="teethType" value="yaeba" /> 八重歯(Double Teeth)</label>
+    </section>
+
+    <section>
+      <h1>2. Drop VRM here</h1>
+    </section>
+
+    <section>
+      <a id="download" />
+    </section>
+  </main>

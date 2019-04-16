@@ -4,6 +4,7 @@ import { extname, basename } from "path";
 import { buildVRMBuffer } from "./buildVRMBuffer";
 import { gizabalifyVRM } from "./gizabalifyVRM";
 import { HandledError } from "./HandledError";
+import { yaebalifyVRM } from "./yaebalifyVRM";
 
 let recentBlobUrl: string;
 
@@ -24,6 +25,10 @@ window.addEventListener("drop", async e => {
   const downloadLink = document.querySelector("#download") as HTMLAnchorElement;
   downloadLink.removeAttribute("href");
   downloadLink.textContent = "Gizabalify... 🕐";
+
+  const teethType = (document.querySelector(
+    '[name="teethType"]:checked'
+  ) as HTMLInputElement).value;
 
   const file = e.dataTransfer.files[0];
   if (recentBlobUrl) {
@@ -53,16 +58,20 @@ window.addEventListener("drop", async e => {
     const gltf = JSON.parse(jsonString);
 
     const vrm = new GltfVRM(gltf);
-    gizabalifyVRM(vrm);
+
+    if (teethType === "gizaba") gizabalifyVRM(vrm);
+    else yaebalifyVRM(vrm);
 
     const newVRM = buildVRMBuffer(vrm, binBuf);
 
     const blob = new Blob([newVRM], { type: "application/octet-stream" });
     const url = URL.createObjectURL(blob);
 
+    const suffix = teethType === "gizaba" ? "gizabalify" : "yaebalify";
+
     downloadLink.textContent = "Complete! click here to download.";
     recentBlobUrl = downloadLink.href = url;
-    downloadLink.download = `${basename(filename, ".vrm")}-gizabalify.vrm`;
+    downloadLink.download = `${basename(filename, ".vrm")}-${suffix}.vrm`;
   } catch (e) {
     console.error(e);
 
