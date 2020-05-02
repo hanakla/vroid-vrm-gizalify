@@ -3,7 +3,7 @@ export enum VRMBlendShapeName {
   I = "I",
   U = "U",
   E = "E",
-  O = "O"
+  O = "O",
 }
 
 export class GltfVRM {
@@ -14,7 +14,8 @@ export class GltfVRM {
 
   public getFaceMesh() {
     const meshIndex = (this.gltf.meshes as any[]).findIndex(
-      ({ name }: { name: string }) => name === "Face.baked"
+      ({ name }: { name: string }) =>
+        name === "Face.baked" || name === "Face (merged).baked"
     );
 
     return { index: meshIndex, mesh: this.gltf.meshes[meshIndex] };
@@ -24,13 +25,13 @@ export class GltfVRM {
     const { primitives } = this.getFaceMesh().mesh;
     const {
       targets,
-      extras: { targetNames }
+      extras: { targetNames },
     } = primitives[0];
 
     return (targets as any[]).map((target, idx) => ({
       index: idx,
       name: targetNames[idx],
-      target
+      target,
     }));
   }
 
