@@ -13,9 +13,9 @@ export class GltfVRM {
   }
 
   public getFaceMesh() {
-    const meshIndex = (this.gltf.meshes as any[]).findIndex(
-      ({ name }: { name: string }) =>
-        name === "Face.baked" || name === "Face (merged).baked"
+    const meshIndex = (this.gltf
+      .meshes as any[]).findIndex(({ name }: { name: string }) =>
+      /^Face.*\.baked/.test(name)
     );
 
     return { index: meshIndex, mesh: this.gltf.meshes[meshIndex] };

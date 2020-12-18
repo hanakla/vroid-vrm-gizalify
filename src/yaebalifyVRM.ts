@@ -17,11 +17,12 @@ export const yaebalifyVRM = (vrm: GltfVRM) => {
   }
 
   const findBlendShapeGroupByName = (name: string) =>
-    vrm.blendShapeGroups.find(group => group.name === name);
+    vrm.blendShapeGroups.find((group) => group.name === name);
 
   [
+    [findBlendShapeGroupByName("Neutral"), 100],
     [findBlendShapeGroupByName("A"), 80],
-    [findBlendShapeGroupByName("I"), 40],
+    [findBlendShapeGroupByName("I"), 80],
     [findBlendShapeGroupByName("U"), 30],
     [findBlendShapeGroupByName("E"), 80],
     [findBlendShapeGroupByName("O"), 70],
@@ -29,7 +30,7 @@ export const yaebalifyVRM = (vrm: GltfVRM) => {
     [findBlendShapeGroupByName("Fun"), 60],
     [findBlendShapeGroupByName("Joy"), 80],
     [findBlendShapeGroupByName("Sorrow"), 80],
-    [findBlendShapeGroupByName("Surprised"), 80]
+    [findBlendShapeGroupByName("Surprised"), 80],
   ].forEach(([blend, weight]) => {
     if (!blend) {
       throw new HandledError(
@@ -40,7 +41,7 @@ export const yaebalifyVRM = (vrm: GltfVRM) => {
     blend.binds.push({
       mesh: vrm.getFaceMesh().index,
       index: fung1Mesh.index,
-      weight
+      weight,
     });
   });
 };
