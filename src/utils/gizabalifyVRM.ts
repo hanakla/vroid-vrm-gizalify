@@ -1,4 +1,4 @@
-import { GltfVRM } from "./VRM";
+import { GltfVRM } from "../VRM";
 import { HandledError } from "./HandledError";
 
 export const gizabalifyVRM = (vrm: GltfVRM) => {

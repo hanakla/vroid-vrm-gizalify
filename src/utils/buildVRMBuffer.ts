@@ -1,6 +1,6 @@
 import { GltfVRM } from "./VRM";
 
-export const buildVRMBuffer = (vrm: GltfVRM, bin: Buffer) => {
+export const buildVRMBuffer = (vrm: GltfVRM) => {
   const newGltfBuf = new Buffer(vrm.toString(), "utf-8");
 
   const jsonChunkType = new Buffer(4);
@@ -13,7 +13,7 @@ export const buildVRMBuffer = (vrm: GltfVRM, bin: Buffer) => {
   newJSONBufLength.writeUInt32LE(newGltfBuf.byteLength, 0);
 
   const binBufLength = Buffer.alloc(4);
-  binBufLength.writeUInt32LE(bin.byteLength, 0);
+  binBufLength.writeUInt32LE(vrm.bin.byteLength, 0);
 
   const newVRM = Buffer.concat([
     new Buffer([0x67, 0x6c, 0x54, 0x46]), // magic
@@ -26,7 +26,7 @@ export const buildVRMBuffer = (vrm: GltfVRM, bin: Buffer) => {
 
     binBufLength,
     binChunkType,
-    bin
+    vrm.bin,
   ]);
 
   newVRM.writeUInt32LE(newVRM.byteLength, 8);

@@ -3,6 +3,7 @@ import { HandledError } from "./HandledError";
 
 export const yaebalifyVRM = (vrm: GltfVRM) => {
   const meshes = vrm.getFaceMeshes();
+  console.log(meshes);
 
   const fung1Mesh = meshes.find(
     ({ name }) =>

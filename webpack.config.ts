@@ -10,12 +10,12 @@ export default () =>
       filename: "[name].js"
     },
     resolve: {
-      extensions: [".js", ".ts"]
+      extensions: [".js", ".ts", ".tsx"]
     },
     module: {
       rules: [
         {
-          test: /\.ts?/,
+          test: /\.tsx?/,
           loader: "ts-loader",
           options: {
             transpileOnly: true

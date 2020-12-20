@@ -7,8 +7,8 @@ export enum VRMBlendShapeName {
 }
 
 export class GltfVRM {
-  private vrm: any;
-  constructor(private gltf: any) {
+  public readonly vrm: any;
+  constructor(public readonly gltf: any, public readonly bin: any) {
     this.vrm = this.gltf.extensions.VRM;
   }
 
