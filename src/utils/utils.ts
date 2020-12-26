@@ -23,5 +23,27 @@ export const useAsyncEffect = (
     })();
 
     return () => dispose && dispose();
-  }, [deps]);
+  }, deps);
+};
+
+export const styleWhen = (flag: boolean) => (
+  template: TemplateStringsArray,
+  ...rest
+) => (flag ? String.raw(template, rest) : "");
+
+export const letDownload = (url: string, filename?: string) => {
+  const a = Object.assign(document.createElement("a"), {
+    href: url,
+    download: filename ?? "",
+  });
+  Object.assign(a, {
+    display: "block",
+    width: "0",
+    height: "0",
+    opacity: "0",
+  });
+
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 };

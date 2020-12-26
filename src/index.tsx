@@ -10,6 +10,7 @@ import DetectLanguage from "i18next-browser-languagedetector";
 domready(() => {
   const root = document.getElementById("root");
   const context = fleurApp.createContext();
+
   i18next
     .use(initReactI18next)
     .use(DetectLanguage)

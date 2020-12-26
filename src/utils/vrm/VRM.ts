@@ -1,3 +1,5 @@
+import { InvalidVRoidVRMError } from "../InvalidVRoidVRMError";
+
 export enum VRMBlendShapeName {
   A = "A",
   I = "I",
@@ -15,22 +17,28 @@ export class GltfVRM {
   public getFaceMesh() {
     const meshIndex = (this.gltf
       .meshes as any[]).findIndex(({ name }: { name: string }) =>
-      /^Face.*\.baked/.test(name)
+      /^Face.*\.baked/i.test(name)
     );
+
+    if (meshIndex === -1) {
+      throw new InvalidVRoidVRMError("Face mesh not found.");
+    }
 
     return { index: meshIndex, mesh: this.gltf.meshes[meshIndex] };
   }
 
   public getFaceMeshes() {
     const { primitives } = this.getFaceMesh().mesh;
-    const {
-      targets,
-      extras: { targetNames },
-    } = primitives[0];
+    const primitive = primitives[0];
+
+    const { targets } = primitive;
+    if (!targets) {
+      throw new InvalidVRoidVRMError("FaceMesh.primitive[].targets not found");
+    }
 
     return (targets as any[]).map((target, idx) => ({
       index: idx,
-      name: targetNames[idx],
+      name: primitive.extras?.targetNames?.[idx] ?? "<name not found>",
       target,
     }));
   }

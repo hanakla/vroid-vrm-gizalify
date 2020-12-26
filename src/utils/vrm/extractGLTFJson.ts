@@ -1,7 +1,7 @@
 import { extname } from "path";
 import { Buffer } from "buffer";
 import { GltfVRM } from "./VRM";
-import { HandledError } from "./HandledError";
+import { HandledError } from "../HandledError";
 
 const validGltf = (bin: Buffer) => {
   return bin.slice(0, 4).toString("utf-8") === "glTF";

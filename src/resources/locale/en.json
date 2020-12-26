@@ -1,5 +1,21 @@
 {
   "common": {
-    "licence": "If model modification is prohibited, the tool is not allowed to be used by anyone who is not the modeler himself."
+    "headings": {
+      "dropVrm": "1. Drag & Drop VRM into window",
+      "chooseTeeth": "2. Choose teeth type",
+      "checkFace": "3. Check and tune appearance",
+      "download": "4. Finish!"
+    },
+    "errors": {
+      "invalidVrm": "Current one was probably not VRM.",
+      "blendshapeNotFound": "There's no jagged teeth... Maybe it was born outside of VRoid Studio, or maybe VRoid Studio changed its specifications..."
+    },
+    "chooseVrm": "Choose .vrm",
+    "download": "Download",
+    "generating": "Generating...",
+    "enableNeutral": "Enable with NEUTRAL blendshape",
+    "currentBlendShape": "Preview facial expression",
+    "weight": "Weight",
+    "licence": "Please note the terms of use for the model. If modification of the model is prohibited, please refrain from using this tool by anyone other than the author."
   }
 }

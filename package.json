@@ -5,8 +5,9 @@
   "author": "ragg <ragg.devpr@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack --mode development --watch",
-    "deploy": "webpack --mode production && gh-pages -d public"
+    "start": "parcel serve -d public src/index.html",
+    "build": "parcel build --experimental-scope-hoisting --public-url \"/vroid-vrm-gizalify/\" -d public",
+    "deploy": "yarn build && gh-pages -d public"
   },
   "devDependencies": {
     "@types/domready": "^1.0.0",
@@ -16,6 +17,7 @@
     "@types/styled-components": "^5.1.7",
     "gh-pages": "2.0.1",
     "html-webpack-plugin": "3.2.0",
+    "parcel": "^1.12.4",
     "sass": "1.18.0",
     "ts-loader": "5.3.3",
     "ts-node": "8.0.3",
@@ -26,16 +28,22 @@
   "dependencies": {
     "@fleur/fleur": "^2.0.0",
     "@fleur/react": "^4.0.1",
+    "@hanakla/rescue": "^1.0.3",
     "@pixiv/three-vrm": "^0.5.5",
-    "camera-controls": "^1.25.3",
     "domready": "^1.0.8",
+    "extensible-custom-error": "^0.0.7",
     "gltf-validator": "^2.0.0-dev.3.3",
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
+    "polished": "^4.0.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.8.4",
     "styled-components": "^5.2.1",
+    "styled-reset": "^4.3.3",
     "three": "^0.123.0"
-  }
+  },
+  "browserslist": [
+    "since 2019-12"
+  ]
 }

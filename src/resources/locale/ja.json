@@ -1,5 +1,21 @@
 {
   "common": {
-    "licence": "モデルのModificationが禁止されている場合、モデル作成者自身ではない方によるこのツールの使用は許可れていません"
+    "headings": {
+      "dropVrm": "1. VRMをドラッグ&ドロップ",
+      "chooseTeeth": "2. 歯の種類を選ぶ",
+      "checkFace": "3. かかり具合と表情を確認",
+      "download": "4. ダウンロード"
+    },
+    "errors": {
+      "invalidVrm": "今のはたぶんVRMじゃなかったと思う",
+      "blendshapeNotFound": "この子、ギザ歯がないよ… VRoid Studio以外で生まれたか、VRoid Studioの仕様変更かもしれない…"
+    },
+    "chooseVrm": "VRMを選ぶ",
+    "download": "ダウンロード",
+    "generating": "生成中…",
+    "enableNeutral": "Neutral表情にも適用する",
+    "weight": "ウェイト",
+    "currentBlendShape": "表情をプレビュー:",
+    "licence": "モデルの利用条件にご注意ください。モデルの変更が禁止されている場合、作者以外の方によるこのツールの使用はお控えください。"
   }
 }
