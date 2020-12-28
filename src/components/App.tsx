@@ -10,7 +10,7 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import styled, { createGlobalStyle } from "styled-components";
-import { AppOps, AppSelector } from "../domains/App";
+import { AppOps, AppSelector, AppStore } from "../domains/App";
 import { previewBlendShapes } from "../domains/constants";
 import { selectFile } from "../utils/selectFile";
 import { Preview } from "./Preview";
@@ -26,6 +26,7 @@ export const App = () => {
   const weight = useStore(AppSelector.getWeight);
   const withinNeutral = useStore(AppSelector.withinNeutral);
   const previewBlendShape = useStore(AppSelector.previewBlendShape);
+  const enableBlink = useStore((get) => get(AppStore).state.enableBlink);
   const generating = useStore(AppSelector.generating);
   const generateErrorCode = useStore(AppSelector.generateErrorCode);
   const userSelectPreviewBlendShape = useStore(
@@ -114,6 +115,13 @@ export const App = () => {
     ({ currentTarget }: ChangeEvent<HTMLInputElement>) => {
       if (Number.isNaN(currentTarget.valueAsNumber)) return;
       executeOperation(AppOps.setWeight, currentTarget.valueAsNumber);
+    },
+    []
+  );
+
+  const handleChangeBlink = useCallback(
+    ({ currentTarget }: ChangeEvent<HTMLInputElement>) => {
+      executeOperation(AppOps.setEnableBlink, currentTarget.checked);
     },
     []
   );
@@ -230,6 +238,20 @@ export const App = () => {
                       </Fragment>
                     ))}
                   </BlendshapeList>
+
+                  <Label style={{ marginTop: 8 }}>
+                    <input
+                      type="checkbox"
+                      style={{
+                        margin: 0,
+                        marginRight: 4,
+                        verticalAlign: "text-bottom",
+                      }}
+                      checked={enableBlink}
+                      onChange={handleChangeBlink}
+                    />
+                    {t("enableBlink")}
+                  </Label>
                 </div>
               </>
             )}

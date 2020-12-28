@@ -10,6 +10,7 @@
       "invalidVrm": "Current one was probably not VRM.",
       "blendshapeNotFound": "There's no jagged teeth... Maybe it was born outside of VRoid Studio, or maybe VRoid Studio changed its specifications..."
     },
+    "enableBlink": "Blinking",
     "chooseVrm": "Choose .vrm",
     "download": "Download",
     "generating": "Generating...",

@@ -197,11 +197,18 @@ const useVRMRenderer = (
       if (vrmRef.current) {
         const vrm = vrmRef.current;
 
-        const s = Math.sin(Math.PI * clock.elapsedTime * 7);
-        vrm.blendShapeProxy?.setValue(
-          VRMSchema.BlendShapePresetName.Blink,
-          0.5 - 0.5 * s
-        );
+        if (getStore(AppStore).state.enableBlink) {
+          const s = Math.sin(Math.PI * clock.elapsedTime * 3);
+          vrm.blendShapeProxy?.setValue(
+            VRMSchema.BlendShapePresetName.Blink,
+            0.5 - 0.5 * s
+          );
+        } else {
+          vrm.blendShapeProxy?.setValue(
+            VRMSchema.BlendShapePresetName.Blink,
+            0
+          );
+        }
 
         vrm.update(clock.getDelta());
         rendererRef.current?.render(rootScene, camera);

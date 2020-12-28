@@ -57,7 +57,9 @@ export const AppOps = operations({
     context.dispatch(AppActions.withinNeutralChanged, { withinNeutral });
     await context.executeOperation(AppOps._generateTransformedVRM);
   },
-
+  setEnableBlink(context, enabled: boolean) {
+    context.dispatch(AppActions.blinkEnableChanged, { enabled });
+  },
   setUserSelectPreviewBlendShape(
     context,
     name: VRMSchema.BlendShapePresetName | null
@@ -172,6 +174,7 @@ export const AppActions = actions("App", {
   toothModeChanged: action<{ mode: ToothMode }>(),
   weightChanged: action<{ weight: number }>(),
   withinNeutralChanged: action<{ withinNeutral: boolean }>(),
+  blinkEnableChanged: action<{ enabled: boolean }>(),
   generatingStatusChanged: action<{
     generating: boolean;
     errorCode?: string | null;
@@ -198,6 +201,7 @@ interface State {
   withinNeutral: boolean;
   previewBlendShape: VRMSchema.BlendShapePresetName;
   userSelectPreviewBlendShape: VRMSchema.BlendShapePresetName | null;
+  enableBlink: boolean;
 }
 
 export const AppStore = reducerStore(
@@ -217,6 +221,7 @@ export const AppStore = reducerStore(
     },
     previewBlendShape: VRMSchema.BlendShapePresetName.Angry,
     userSelectPreviewBlendShape: null,
+    enableBlink: false,
   })
 )
   .listen(AppActions.clearVRM, (draft) => {
@@ -259,6 +264,9 @@ export const AppStore = reducerStore(
   })
   .listen(AppActions.toothModeChanged, (draft, { mode }) => {
     draft.toothMode = mode;
+  })
+  .listen(AppActions.blinkEnableChanged, (draft, { enabled }) => {
+    draft.enableBlink = enabled;
   })
   .listen(AppActions.weightChanged, (draft, { weight }) => {
     draft.weight = weight;

@@ -10,6 +10,7 @@
       "invalidVrm": "今のはたぶんVRMじゃなかったと思う",
       "blendshapeNotFound": "この子、ギザ歯がないよ… VRoid Studio以外で生まれたか、VRoid Studioの仕様変更かもしれない…"
     },
+    "enableBlink": "まばたきヨシ？",
     "chooseVrm": "VRMを選ぶ",
     "download": "ダウンロード",
     "generating": "生成中…",
