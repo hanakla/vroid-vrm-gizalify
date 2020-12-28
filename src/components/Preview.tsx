@@ -26,6 +26,8 @@ import overlay1OrangePath from "../resources/images/overlay1-orange.png";
 import overlay1PinkPath from "../resources/images/overlay1-pink.png";
 import overlay1PurplePath from "../resources/images/overlay1-purple.png";
 import overlay2Path from "../resources/images/overlay2.png";
+import { useModalOpener } from "@fleur/mordred";
+import { ConfirmPhoto } from "../modals/ConfirmPhoto";
 
 const images = [
   overlay1BluePath,
@@ -62,6 +64,7 @@ export const Preview = () => {
 const useVRMRenderer = (
   canvasRef: MutableRefObject<HTMLCanvasElement | null>
 ) => {
+  const { openModal } = useModalOpener();
   const [loading, setLoading] = useState(false);
 
   const clock = useMemo(() => new THREE.Clock(), []);
@@ -85,8 +88,6 @@ const useVRMRenderer = (
     const blob = await new Promise<Blob>((r) =>
       canvasRef.current!.toBlob((blob) => r(blob!), "image/png")
     );
-
-    // rendererRef.current.data;
 
     const { image, url: captureUrl } = await loadImageFromBlob(blob);
     const overlay1 = await loadImage(
@@ -115,12 +116,13 @@ const useVRMRenderer = (
     );
     const resultUrl = URL.createObjectURL(result);
 
-    letDownload(resultUrl, `gizabalify-screenshot-${Date.now()}.jpg`);
+    await openModal(ConfirmPhoto, { url: resultUrl });
+
     URL.revokeObjectURL(captureUrl);
     URL.revokeObjectURL(resultUrl);
 
     return resultUrl;
-  }, []);
+  }, [openModal]);
 
   const resetCamera = useCallback(() => {
     if (vrmRef.current) {

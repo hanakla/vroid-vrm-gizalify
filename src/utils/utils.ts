@@ -28,8 +28,8 @@ export const useAsyncEffect = (
 
 export const styleWhen = (flag: boolean) => (
   template: TemplateStringsArray,
-  ...rest
-) => (flag ? String.raw(template, rest) : "");
+  ...rest: any[]
+) => (flag ? String.raw(template, ...rest) : "");
 
 export const letDownload = (url: string, filename?: string) => {
   const a = Object.assign(document.createElement("a"), {

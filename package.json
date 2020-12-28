@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@fleur/fleur": "^2.0.0",
+    "@fleur/mordred": "^1.0.0-beta.2",
     "@fleur/react": "^4.0.1",
     "@hanakla/rescue": "^1.0.3",
     "@pixiv/three-vrm": "^0.5.5",

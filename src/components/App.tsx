@@ -16,6 +16,7 @@ import { selectFile } from "../utils/selectFile";
 import { Preview } from "./Preview";
 import reset from "styled-reset";
 import { styleWhen } from "../utils/utils";
+import { Button } from "./Button";
 
 export const App = () => {
   const { executeOperation, getStore } = useFleurContext();
@@ -262,7 +263,11 @@ export const App = () => {
             </Heading>
 
             {isToothTypeSelected && (
-              <Button onClick={handleClickDownload} disabled={!isDownloadable}>
+              <Button
+                kind="primary"
+                onClick={handleClickDownload}
+                disabled={!isDownloadable}
+              >
                 {isDownloadable ? t("download") : t("generating")}
               </Button>
             )}
@@ -312,6 +317,10 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
     flex-flow: column;
+  }
+
+  a {
+    color: #757575;
   }
 `;
 
@@ -393,7 +402,7 @@ const BlendshapeLabel = styled.span<{ active: boolean }>`
   min-width: 60px;
   user-select: none;
   cursor: pointer;
-  opacity: ${({ active }) => (active ? 1 : 0.5)};
+  opacity: ${({ active }) => (active ? 1 : 0.6)};
   background-color: #ff982f;
   color: #fff;
   border-radius: 4px;
@@ -410,29 +419,6 @@ const Radio = styled.input.attrs(() => ({ type: "radio" }))`
   margin: 0;
   margin-right: 4px;
   vertical-align: text-bottom;
-`;
-
-const Button = styled.button`
-  display: block;
-  width: 100%;
-  padding: 8px;
-  text-align: center;
-  border: none;
-  background: linear-gradient(45deg, #38e265, #ff982f);
-  color: #fff;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #5c39a0;
-  }
-
-  &:disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
 `;
 
 const WeightInput = styled.input`

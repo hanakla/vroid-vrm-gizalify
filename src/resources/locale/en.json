@@ -17,6 +17,10 @@
     "enableNeutral": "Enable with NEUTRAL blendshape",
     "currentBlendShape": "Preview facial expression",
     "weight": "Weight",
-    "licence": "Please note the terms of use for the model. If modification of the model is prohibited, please refrain from using this tool by anyone other than the author."
+    "licence": "Please note the terms of use for the model. If modification of the model is prohibited, please refrain from using this tool by anyone other than the author.",
+    "letShare": "Let's share this jagged teeth face!",
+    "shareText": "#gizabalify to make you look WARUIKAO genus too!",
+    "close": "Close",
+    "save": "Save it!"
   }
 }
