@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel serve -d public src/index.html",
-    "build": "parcel build --experimental-scope-hoisting --public-url \"/vroid-vrm-gizalify/\" -d public",
+    "build": "parcel build --public-url \"/vroid-vrm-gizalify/\" -d public src/index.html",
     "deploy": "yarn build && gh-pages -d public"
   },
   "devDependencies": {

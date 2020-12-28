@@ -15,7 +15,7 @@ import { rgba } from "polished";
 import { AppOps, AppSelector, AppStore } from "../domains/App";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { letDownload, styleWhen, useAsyncEffect } from "../utils/utils";
+import { styleWhen, useAsyncEffect } from "../utils/utils";
 import { previewBlendShapes } from "../domains/constants";
 import { loadImage, loadImageFromBlob } from "../utils/loadImage";
 
@@ -117,6 +117,7 @@ const useVRMRenderer = (
     const resultUrl = URL.createObjectURL(result);
 
     await openModal(ConfirmPhoto, { url: resultUrl });
+    console.log("ok");
 
     URL.revokeObjectURL(captureUrl);
     URL.revokeObjectURL(resultUrl);
