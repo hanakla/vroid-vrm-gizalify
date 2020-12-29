@@ -117,8 +117,6 @@ const useVRMRenderer = (
     const resultUrl = URL.createObjectURL(result);
 
     await openModal(ConfirmPhoto, { url: resultUrl });
-    console.log("ok");
-
     URL.revokeObjectURL(captureUrl);
     URL.revokeObjectURL(resultUrl);
 

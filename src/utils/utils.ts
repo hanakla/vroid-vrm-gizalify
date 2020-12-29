@@ -36,14 +36,6 @@ export const letDownload = (url: string, filename?: string) => {
     href: url,
     download: filename ?? "",
   });
-  Object.assign(a, {
-    display: "block",
-    width: "0",
-    height: "0",
-    opacity: "0",
-  });
 
-  document.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
 };
