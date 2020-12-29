@@ -112,11 +112,11 @@ const useVRMRenderer = (
     );
 
     const result = await new Promise<Blob>((r) =>
-      canvas!.toBlob((blob) => r(blob!), "image/jpeg", 100)
+      canvas!.toBlob((blob) => r(blob!), "image/png", 100)
     );
     const resultUrl = URL.createObjectURL(result);
 
-    await openModal(ConfirmPhoto, { url: resultUrl });
+    await openModal(ConfirmPhoto, { url: resultUrl, blob: result });
     URL.revokeObjectURL(captureUrl);
     URL.revokeObjectURL(resultUrl);
 

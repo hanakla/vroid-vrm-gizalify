@@ -1,20 +1,26 @@
 import { ModalComponentType } from "@fleur/mordred";
-import { MouseEvent, useCallback, useMemo } from "react";
+import { MouseEvent, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { Button } from "../components/Button";
-import { letDownload } from "../utils/utils";
+import { letDownload, rescue, useAsyncEffect } from "../utils/utils";
 
-export const ConfirmPhoto: ModalComponentType<{ url: string }, void> = ({
-  url,
-  onClose,
-}) => {
+export const ConfirmPhoto: ModalComponentType<
+  { url: string; blob: Blob },
+  void
+> = ({ url, blob, onClose }) => {
   const { t } = useTranslation();
+  const [clipboardGranted, setClipBoardGranted] = useState<boolean | null>(
+    false
+  );
 
-  const handleClickDownload = useCallback(() => {
-    letDownload(url, `gizabalify-screenshot-${Date.now()}.jpg`);
-    onClose();
-  }, [url]);
+  const handleClickDownload = useCallback(async () => {
+    if (clipboardGranted) {
+      navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    } else {
+      letDownload(url, `gizabalify-screenshot-${Date.now()}.jpg`);
+    }
+  }, [url, clipboardGranted, blob]);
 
   const twitterUrl = useMemo(
     () =>
@@ -29,6 +35,15 @@ export const ConfirmPhoto: ModalComponentType<{ url: string }, void> = ({
     e.preventDefault();
   }, []);
 
+  useAsyncEffect(async () => {
+    const [result] = await rescue(() =>
+      navigator.permissions.query({
+        name: "clipboard-write" as any,
+      })
+    );
+    setClipBoardGranted(result?.state === "granted");
+  }, []);
+
   return (
     <Root>
       <img src={url} style={{ width: "100%" }} />
@@ -39,8 +54,16 @@ export const ConfirmPhoto: ModalComponentType<{ url: string }, void> = ({
       </div>
       <Footer>
         <Button onClick={onClose}>{t("close")}</Button>
-        <Button kind="primary" onClick={handleClickDownload}>
-          {t("save")}
+        <Button
+          kind="primary"
+          onClick={handleClickDownload}
+          disabled={clipboardGranted === null}
+        >
+          {clipboardGranted == null ||
+          clipboardGranted === false ||
+          typeof ClipboardItem === "undefined"
+            ? t("save")
+            : t("copyToClipboard")}
         </Button>
       </Footer>
     </Root>
@@ -49,7 +72,6 @@ export const ConfirmPhoto: ModalComponentType<{ url: string }, void> = ({
 
 const Root = styled.div`
   max-width: 800px;
-  max-height 80vh;
   margin: auto;
   border-radius: 4px;
   overflow: hidden;

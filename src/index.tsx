@@ -46,5 +46,6 @@ const Backdrop = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
+  overflow: auto;
   background-color: ${rgba("#335", 0.3)};
 `;
