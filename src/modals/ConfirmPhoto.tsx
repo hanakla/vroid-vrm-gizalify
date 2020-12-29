@@ -13,10 +13,13 @@ export const ConfirmPhoto: ModalComponentType<
   const [clipboardGranted, setClipBoardGranted] = useState<boolean | null>(
     false
   );
+  const [copied, setCopied] = useState(false);
 
   const handleClickDownload = useCallback(async () => {
     if (clipboardGranted) {
       navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1000);
     } else {
       letDownload(url, `gizabalify-screenshot-${Date.now()}.jpg`);
     }
@@ -54,15 +57,13 @@ export const ConfirmPhoto: ModalComponentType<
       </div>
       <Footer>
         <Button onClick={onClose}>{t("close")}</Button>
-        <Button
-          kind="primary"
-          onClick={handleClickDownload}
-          disabled={clipboardGranted === null}
-        >
+        <Button kind="primary" onClick={handleClickDownload}>
           {clipboardGranted == null ||
           clipboardGranted === false ||
           typeof ClipboardItem === "undefined"
             ? t("save")
+            : copied
+            ? t("copied")
             : t("copyToClipboard")}
         </Button>
       </Footer>
