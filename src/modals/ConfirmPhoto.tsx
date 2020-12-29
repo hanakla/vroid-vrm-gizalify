@@ -20,6 +20,10 @@ export const ConfirmPhoto: ModalComponentType<
       navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
       setCopied(true);
       setTimeout(() => setCopied(false), 1000);
+      gtag("event", "photo", {
+        event_category: "download",
+        event_label: "download",
+      });
     } else {
       letDownload(url, `gizabalify-screenshot-${Date.now()}.jpg`);
     }
@@ -34,8 +38,9 @@ export const ConfirmPhoto: ModalComponentType<
   );
 
   const handleClickShare = useCallback((e: MouseEvent) => {
-    window.open(twitterUrl, void 0, "width=500,height=500");
     e.preventDefault();
+    window.open(twitterUrl, void 0, "width=500,height=500");
+    gtag("event", "photo", { event_category: "share", event_label: "share" });
   }, []);
 
   useAsyncEffect(async () => {

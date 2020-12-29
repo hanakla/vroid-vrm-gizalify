@@ -68,6 +68,11 @@ export const App = () => {
     a.href = vrmUrl;
     a.download = fileName;
     a.click();
+
+    gtag("event", "download", {
+      event_category: "download",
+      event_label: "download",
+    });
   }, [toothMode, isDownloadable]);
 
   const handleClickChooseVrm = useCallback(() => {
