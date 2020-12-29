@@ -96972,11 +96972,14 @@ const ConfirmPhoto = ({
     t
   } = react_i18next_1.useTranslation();
   const [clipboardGranted, setClipBoardGranted] = react_1.useState(false);
+  const [copied, setCopied] = react_1.useState(false);
   const handleClickDownload = react_1.useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
     if (clipboardGranted) {
       navigator.clipboard.write([new ClipboardItem({
         "image/png": blob
       })]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1000);
     } else {
       utils_1.letDownload(url, `gizabalify-screenshot-${Date.now()}.jpg`);
     }
@@ -97017,10 +97020,9 @@ const ConfirmPhoto = ({
         children: t("close")
       }), void 0), jsx_runtime_1.jsx(Button_1.Button, Object.assign({
         kind: "primary",
-        onClick: handleClickDownload,
-        disabled: clipboardGranted === null
+        onClick: handleClickDownload
       }, {
-        children: clipboardGranted == null || clipboardGranted === false || typeof ClipboardItem === "undefined" ? t("save") : t("copyToClipboard")
+        children: clipboardGranted == null || clipboardGranted === false || typeof ClipboardItem === "undefined" ? t("save") : copied ? t("copied") : t("copyToClipboard")
       }), void 0)]
     }, void 0)]
   }, void 0);
@@ -100937,6 +100939,7 @@ module.exports = {
     "letShare": "Let's share this jagged teeth face!",
     "shareText": "#gizabalify to make you look WARUIKAO genus too!",
     "copyToClipboard": "Copy to clipboard",
+    "copied": "Copied!",
     "close": "Close",
     "save": "Save it!"
   }
@@ -100965,6 +100968,7 @@ module.exports = {
     "letShare": "ギザ歯顔をシェアしてみよう！",
     "shareText": "#gizabalify でキミも悪い顔属になろう！",
     "copyToClipboard": "クリップボードにコピー",
+    "copied": "コピーした！",
     "close": "閉じる",
     "save": "保存する"
   }
@@ -101068,7 +101072,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65355" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63781" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
