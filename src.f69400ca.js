@@ -96980,14 +96980,22 @@ const ConfirmPhoto = ({
       })]);
       setCopied(true);
       setTimeout(() => setCopied(false), 1000);
+      gtag("event", "photo", {
+        event_category: "download",
+        event_label: "download"
+      });
     } else {
       utils_1.letDownload(url, `gizabalify-screenshot-${Date.now()}.jpg`);
     }
   }), [url, clipboardGranted, blob]);
   const twitterUrl = react_1.useMemo(() => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t("shareText"))}&url=${encodeURIComponent(location.href)}`, []);
   const handleClickShare = react_1.useCallback(e => {
-    window.open(twitterUrl, void 0, "width=500,height=500");
     e.preventDefault();
+    window.open(twitterUrl, void 0, "width=500,height=500");
+    gtag("event", "photo", {
+      event_category: "share",
+      event_label: "share"
+    });
   }, []);
   utils_1.useAsyncEffect(() => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield utils_1.rescue(() => navigator.permissions.query({
@@ -97677,6 +97685,10 @@ const App = () => {
     a.href = vrmUrl;
     a.download = fileName;
     a.click();
+    gtag("event", "download", {
+      event_category: "download",
+      event_label: "download"
+    });
   }, [toothMode, isDownloadable]);
   const handleClickChooseVrm = react_2.useCallback(() => {
     const files = selectFile_1.selectFile({
