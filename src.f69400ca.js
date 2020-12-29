@@ -96908,6 +96908,38 @@ exports.Button = styled_components_1.default.button`
 },{"polished":"../node_modules/polished/dist/polished.esm.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","../utils/utils":"utils/utils.ts"}],"modals/ConfirmPhoto.tsx":[function(require,module,exports) {
 "use strict";
 
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -96933,20 +96965,33 @@ const utils_1 = require("../utils/utils");
 
 const ConfirmPhoto = ({
   url,
+  blob,
   onClose
 }) => {
   const {
     t
   } = react_i18next_1.useTranslation();
-  const handleClickDownload = react_1.useCallback(() => {
-    utils_1.letDownload(url, `gizabalify-screenshot-${Date.now()}.jpg`);
-    onClose();
-  }, [url]);
+  const [clipboardGranted, setClipBoardGranted] = react_1.useState(false);
+  const handleClickDownload = react_1.useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
+    if (clipboardGranted) {
+      navigator.clipboard.write([new ClipboardItem({
+        "image/png": blob
+      })]);
+    } else {
+      utils_1.letDownload(url, `gizabalify-screenshot-${Date.now()}.jpg`);
+    }
+  }), [url, clipboardGranted, blob]);
   const twitterUrl = react_1.useMemo(() => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t("shareText"))}&url=${encodeURIComponent(location.href)}`, []);
   const handleClickShare = react_1.useCallback(e => {
     window.open(twitterUrl, void 0, "width=500,height=500");
     e.preventDefault();
   }, []);
+  utils_1.useAsyncEffect(() => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield utils_1.rescue(() => navigator.permissions.query({
+      name: "clipboard-write"
+    }));
+    setClipBoardGranted((result === null || result === void 0 ? void 0 : result.state) === "granted");
+  }), []);
   return jsx_runtime_1.jsxs(Root, {
     children: [jsx_runtime_1.jsx("img", {
       src: url,
@@ -96972,9 +97017,10 @@ const ConfirmPhoto = ({
         children: t("close")
       }), void 0), jsx_runtime_1.jsx(Button_1.Button, Object.assign({
         kind: "primary",
-        onClick: handleClickDownload
+        onClick: handleClickDownload,
+        disabled: clipboardGranted === null
       }, {
-        children: t("save")
+        children: clipboardGranted == null || clipboardGranted === false || typeof ClipboardItem === "undefined" ? t("save") : t("copyToClipboard")
       }), void 0)]
     }, void 0)]
   }, void 0);
@@ -96983,7 +97029,6 @@ const ConfirmPhoto = ({
 exports.ConfirmPhoto = ConfirmPhoto;
 const Root = styled_components_1.default.div`
   max-width: 800px;
-  max-height 80vh;
   margin: auto;
   border-radius: 4px;
   overflow: hidden;
@@ -97190,10 +97235,11 @@ const useVRMRenderer = canvasRef => {
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(overlay1, 32, 32);
     ctx.drawImage(overlay2, canvas.width - overlay2.width - 16, canvas.height - overlay2.height);
-    const result = yield new Promise(r => canvas.toBlob(blob => r(blob), "image/jpeg", 100));
+    const result = yield new Promise(r => canvas.toBlob(blob => r(blob), "image/png", 100));
     const resultUrl = URL.createObjectURL(result);
     yield openModal(ConfirmPhoto_1.ConfirmPhoto, {
-      url: resultUrl
+      url: resultUrl,
+      blob: result
     });
     URL.revokeObjectURL(captureUrl);
     URL.revokeObjectURL(resultUrl);
@@ -100890,6 +100936,7 @@ module.exports = {
     "licence": "Please note the terms of use for the model. If modification of the model is prohibited, please refrain from using this tool by anyone other than the author.",
     "letShare": "Let's share this jagged teeth face!",
     "shareText": "#gizabalify to make you look WARUIKAO genus too!",
+    "copyToClipboard": "Copy to clipboard",
     "close": "Close",
     "save": "Save it!"
   }
@@ -100917,6 +100964,7 @@ module.exports = {
     "licence": "モデルの利用条件にご注意ください。モデルの変更が禁止されている場合、作者以外の方によるこのツールの使用はお控えください。",
     "letShare": "ギザ歯顔をシェアしてみよう！",
     "shareText": "#gizabalify でキミも悪い顔属になろう！",
+    "copyToClipboard": "クリップボードにコピー",
     "close": "閉じる",
     "save": "保存する"
   }
@@ -100989,6 +101037,7 @@ const Backdrop = styled_components_1.default.div`
   display: flex;
   width: 100vw;
   height: 100vh;
+  overflow: auto;
   background-color: ${polished_1.rgba("#335", 0.3)};
 `;
 },{"react/jsx-runtime":"../node_modules/react/jsx-runtime.js","domready":"../node_modules/domready/ready.js","react-dom":"../node_modules/react-dom/index.js","./components/App":"components/App.tsx","@fleur/react":"../node_modules/@fleur/react/dist/index.esm.js","./domains":"domains/index.ts","i18next":"../node_modules/i18next/dist/esm/i18next.js","react-i18next":"../node_modules/react-i18next/dist/es/index.js","i18next-browser-languagedetector":"../node_modules/i18next-browser-languagedetector/dist/esm/i18nextBrowserLanguageDetector.js","@fleur/mordred":"../node_modules/@fleur/mordred/dist/index.esm.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","polished":"../node_modules/polished/dist/polished.esm.js","./resources/locale/en.json":"resources/locale/en.json","./resources/locale/ja.json":"resources/locale/ja.json"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -101019,7 +101068,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63781" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65355" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
