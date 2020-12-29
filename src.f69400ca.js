@@ -95411,15 +95411,7 @@ const letDownload = (url, filename) => {
     href: url,
     download: filename !== null && filename !== void 0 ? filename : ""
   });
-  Object.assign(a, {
-    display: "block",
-    width: "0",
-    height: "0",
-    opacity: "0"
-  });
-  document.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
 };
 
 exports.letDownload = letDownload;
@@ -101027,7 +101019,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64782" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63781" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
